@@ -24,24 +24,39 @@ export default function Admin() {
 
     console.log(formDataList);
 
+    const openPdfInNewTab = (pdfBuffer) => {
+        const uint8Array = new Uint8Array(pdfBuffer);
+        const blob = new Blob([uint8Array], { type: 'application/pdf' });
+        const pdfUrl = URL.createObjectURL(blob);
+
+        // Open PDF in a new tab
+        window.open(pdfUrl, '_blank');
+
+        //  // Create a download link
+        //  const link = document.createElement('a');
+        //  link.href = URL.createObjectURL(blob);
+        //  link.download = 'document.pdf';
+ 
+        //  // Append the link to the document
+        //  document.body.appendChild(link);
+ 
+        //  // Trigger a click on the link to start the download
+        //  link.click();
+ 
+        //  // Remove the link from the document
+        //  document.body.removeChild(link);
+    };
+
     return (
-        <div>
+        <div className="admin-page">
             <h2>Form Data Display</h2>
             {formDataList.map((formData) => (
-                <div key={formData.uuid}>
+                <div key={formData.uuid} className='admin-container'>
                     <p>Display Name: {formData.display_name}</p>
                     <p>Total Pages: {formData.total_pages}</p>
                     <p>Copies: {formData.copies}</p>
                     <p>PDF:</p>
-                    <div >
-                        <a href={`data:application/pdf;base64,${formData.pdf.data.toString('base64')}`} download={`myfile.pdf`}>
-                            Download PDF
-                        </a>
-                    </div>
-                    <button onClick={() => PdfViewer(formData.pdf.data.toString('base64'))}>
-                        Open PDF in New Tab
-                    </button>
-                    <hr />
+                    <button onClick={openPdfInNewTab(formData.pdf.data)}>Open file</button>
                 </div>
             ))}
         </div>

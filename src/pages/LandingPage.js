@@ -7,11 +7,11 @@ export default function LandingPage() {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <div className="Landing-container">
             <h1>DocUp</h1>
-            <div>
-                <button onClick={() => navigate('/signin')}>User</button>
-                <button onClick={() => navigate('/admin')}>Admin</button>
+            <div className="button-container">
+                <button className="landing-btn" onClick={() => navigate('/signin')}>User</button>
+                <button className="landing-btn" onClick={() => navigate('/admin')}>Admin</button>
             </div>
         </div>
     )
